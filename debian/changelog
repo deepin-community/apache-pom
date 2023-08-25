@@ -1,3 +1,39 @@
+apache-pom (29-2) unstable; urgency=medium
+
+  * Team upload.
+  * No longer ignore the maven-plugin-annotations dependency
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Mon, 09 Jan 2023 10:14:17 +0100
+
+apache-pom (29-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release
+    - Updated the Maven rules
+  * Standards-Version updated to 4.6.2
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Fri, 06 Jan 2023 12:56:21 +0100
+
+apache-pom (25-2) unstable; urgency=medium
+
+  * Team upload.
+  * Relocate org.apache:apache:18 -> 25 to preserve the backward compatibility
+  * Refreshed debian/copyright
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Wed, 05 Oct 2022 11:02:12 +0200
+
+apache-pom (25-1) unstable; urgency=medium
+
+  * New upstream release
+    - Updated the Maven rules
+  * Removed Damien Raude-Morvan from the uploaders (Closes: #889440)
+  * Standards-Version updated to 4.6.1
+  * Switch to debhelper level 13
+  * Use salsa.debian.org Vcs-* URLs
+  * Track and download the new releases from GitHub
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Wed, 28 Sep 2022 09:04:48 +0200
+
 apache-pom (18-1) unstable; urgency=low
 
   * Team upload.
