@@ -25,7 +25,7 @@ under the License.
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
-    <version>18</version>
+    <version>29</version>
     <relativePath>./pom.xml</relativePath>
   </parent>
 
@@ -36,23 +36,42 @@ under the License.
   <description>This project consists of a POM that contains settings that are likely to be useful to any Apache project that is building and releasing code with Maven 2/3.</description>
   <url>https://maven.apache.org/pom/asf/</url>
 
+  <mailingLists>
+    <mailingList>
+      <name>Apache Release Discuss</name>
+      <subscribe>mailto:release-discuss-subscribe@apache.org</subscribe>
+      <unsubscribe>mailto:release-discuss-unsubscribe@apache.org</unsubscribe>
+      <post>mailto:release-discuss@apache.org</post>
+      <archive>https://lists.apache.org/list.html?release-discuss@apache.org</archive>
+    </mailingList>
+  </mailingLists>
+
   <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/maven/pom/trunk/asf</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/pom/trunk/asf</developerConnection>
-    <url>https://svn.apache.org/viewvc/maven/pom/trunk/asf</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-apache-parent.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-apache-parent.git</developerConnection>
+    <url>https://github.com/apache/maven-apache-parent/tree/${project.scm.tag}</url>
+    <tag>apache-${project.version}</tag>
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>https://issues.apache.org/jira/browse/MPOM/component/12314370</url>
+    <url>https://issues.apache.org/jira/issues/?jql=project%3DMPOM+AND+component%3Dasf</url>
   </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
-    <url>https://builds.apache.org/view/M-R/view/Maven/job/ASF%20Parent%20Pom/</url>
+    <url>https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-apache-parent/</url>
+    <notifiers>
+      <notifier>
+        <type>mail</type>
+        <configuration>
+          <address>notifications@maven.apache.org</address>
+        </configuration>
+      </notifier>
+    </notifiers>
   </ciManagement>
   <distributionManagement>
     <site>
       <id>apache.website</id>
-      <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/maven/components/${maven.site.path}</url>
+      <url>scm:svn:https://svn.apache.org/repos/asf/maven/website/components/${maven.site.path}</url>
     </site>
   </distributionManagement>
 
@@ -68,16 +87,26 @@ under the License.
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
           <siteDirectory>${basedir}/src/site-docs</siteDirectory>
+          <skipDeploy>true</skipDeploy><!-- don't deploy site with maven-site-plugin -->
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-publish-plugin</artifactId>
         <configuration>
-          <content>${project.reporting.outputDirectory}</content>
+          <content>${project.reporting.outputDirectory}</content><!-- mono-module doesn't require site:stage -->
           <checkoutDirectory>${maven.site.cache}/${maven.site.path}</checkoutDirectory>
           <tryUpdate>true</tryUpdate>
         </configuration>
+        <executions>
+          <execution>
+            <id>scm-publish</id>
+            <phase>site-deploy</phase><!-- deploy site with maven-scm-publish-plugin -->
+            <goals>
+              <goal>publish-scm</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

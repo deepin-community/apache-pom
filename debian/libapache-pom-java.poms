@@ -17,5 +17,5 @@
 #   --no-usj-versionless: don't install the versionless link in /usr/share/java
 #   --dest-jar=<path>: the destination for the real jar
 #
-pom.xml      --has-package-version --keep-elements=build
+pom.xml      --has-package-version --keep-elements=build --relocate=org.apache:apache:18
 site-pom.xml --has-package-version --site-xml=src/site-docs/site.xml
